@@ -3,6 +3,8 @@ const get_route= express();
 
 const user_controller= require("../controllers/userController");
 
+//const passport= require('passport');
+//const googlestrategy= require('passport-google-oauth20');
 
 get_route.set('view engine', 'ejs');
 get_route.set('views', "./views/users");
@@ -46,6 +48,24 @@ const storage= multer.diskStorage({
 
 const upload= multer({storage: storage});
 
+/*
+passport.use(new googlestrategy({
+    clientID : "919089587970-q6oirjdbi1mlqg3400vplgav8gu3bb7o.apps.googleusercontent.com",
+    clientSecret : "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",
+    callbackURL : "/auth/google/callback"
+
+},(accessToken, refreshToken, profile, done ) => {
+    console.log(accessToken)
+    console.log(refreshToken)
+    console.log(profile)
+}))
+
+get_route.get("/", passport.authenticate("google",{
+    scope: ["profile", "email"]
+}));
+
+get_route.get("/auth/google/callback", passport.authenticate("google"));
+*/
 
 
 get_route.post('/register', user_controller.register_user);
@@ -66,6 +86,3 @@ get_route.post('/resetpassword', user_controller.forgetuser);
 
 module.exports= get_route;
 
-// const auth= require("../middleware/auth");
-// product_route.post('/add-product', upload.array('images', 8), auth, product_controller.addproduct);
-//get_route.get('/get-data', user_controller.product);
